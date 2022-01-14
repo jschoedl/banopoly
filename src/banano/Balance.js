@@ -3,19 +3,22 @@ import bananojs from "@bananocoin/bananojs";
 
 bananojs.setBananodeApiUrl('https://kaliumapi.appditto.com/api');
 
-class Player extends Component {
+class Balance extends Component {
     constructor(props) {
         super(props);
         this.address = props.address;
         this.state = {balance: NaN};
+        this.update = props.update;
     }
 
     componentDidMount() {
-        this.updateInterval = setInterval(() => this.updateBalance(), 1000);
+        if (this.update)
+            this.updateInterval = setInterval(() => this.updateBalance(), 1000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.updateInterval);
+        if (this.update)
+            clearInterval(this.updateInterval);
     }
 
     updateBalance() {
@@ -37,4 +40,4 @@ class Player extends Component {
     }
 }
 
-export default Player;
+export default Balance;
