@@ -16,7 +16,7 @@ function AddressInput(props) {
 
     const router = useRouter();
     const handleSubmit = (event) => {
-        router.push("/invite");
+        router.push(props.next);
         event.preventDefault();
     }
 
