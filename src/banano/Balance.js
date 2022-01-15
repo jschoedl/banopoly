@@ -45,7 +45,8 @@ class Balance extends Component {
     render() {
         if (this.format)
             return (
-                <>{this.state.balance ? <>Kontostand: {this.state.balance} BANANO</> : <>Konto nicht gefunden</>}</>
+                <>{isNaN((this.state.balance)) ?
+                    <>Konto nicht gefunden</> : <>Kontostand: {this.state.balance} BANANO</>}</>
             )
         return (
             <>{this.state.balance || NaN}</>
