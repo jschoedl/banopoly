@@ -1,6 +1,7 @@
 import Document, {Head, Html, Main, NextScript} from 'next/document'
 
-class BanopolyDocument extends Document {
+
+export default class BanopolyDocument extends Document {
     render() {
         return (
             <Html lang="en">
@@ -21,5 +22,3 @@ class BanopolyDocument extends Document {
         )
     }
 }
-
-export default BanopolyDocument;

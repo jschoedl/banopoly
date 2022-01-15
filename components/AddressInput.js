@@ -17,9 +17,6 @@ function AddressInput(props) {
     const router = useRouter();
     const handleSubmit = (event) => {
         router.push("/invite");
-        // TODO
-        // QR code for others to join
-        // Button to start
         event.preventDefault();
     }
 

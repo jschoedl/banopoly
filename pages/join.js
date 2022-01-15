@@ -1,9 +1,9 @@
 import AddressInput from "../components/AddressInput";
 
 
-export default function Index() {
+export default function Join() {
     return (<>
-            <AddressInput names={["Bank", "Mitte"]}/>
+            <AddressInput names={["Dein Wallet"]}/>
         </>
     );
 }
