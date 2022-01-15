@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import SetupGame from "./create/SetupGame";
+import ShowJoinQRCode from "./ShowJoinQRCode";
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
             <div>
                 <Routes>
                     <Route path="/" element={<SetupGame/>}/>
+                    <Route path="/join" element={<ShowJoinQRCode/>}/>
                 </Routes>
             </div>
         </BrowserRouter>
