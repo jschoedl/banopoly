@@ -1,7 +1,7 @@
 import {Button, Form} from "react-bootstrap";
-import Balance from "../banano/Balance";
+import Balance from "./Balance";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useRouter} from "next/router";
 
 function AddressInput(props) {
     const [addresses, setAddresses] = useState({});
@@ -14,10 +14,10 @@ function AddressInput(props) {
         })
     }
 
-    let navigate = useNavigate();
+    const router = useRouter();
     const handleSubmit = (event) => {
+        router.push("/join");
         // TODO
-        navigate("/join");
         // QR code for others to join
         // Button to start
         event.preventDefault();
