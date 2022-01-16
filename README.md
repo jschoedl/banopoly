@@ -3,9 +3,10 @@
 Play MONOPOLY using the BANANO cryptocurrency.
 
 ## Installation
-1. Install and start MongoDB [locally](https://docs.mongodb.com/manual/administration/install-community/) or set up a remote instance
-2. Install other dependencies using ```npm install```
-3. Copy ```.env.local.example``` to ```.env.local``` and edit it if necessary
+1. Install MongoDB [locally](https://docs.mongodb.com/manual/administration/install-community/) or set up a remote instance
+3. Install other dependencies using ```npm install```
+4. Start MongoDB (e.g. ```sudo service mongod start```)
+5. Copy ```.env.local.example``` to ```.env.local``` and edit it if necessary
 
 ### Development
 ```shell
@@ -17,3 +18,14 @@ npm dev
 npm build
 npm start
 ```
+
+## Troubleshooting
+
+### No Connection to MongoDB
+* check ```sudo service mongod status```
+  * fails with status 14: 
+  ```shell
+    sudo chown -R mongodb:mongodb /var/lib/mongodb
+    sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
+    sudo service mongod restart
+    ```
