@@ -2,15 +2,11 @@ import {useRouter} from 'next/router'
 import AddressInput from "../../components/AddressInput";
 
 
-const Post = () => {
+export default function JoinGame() {
     const router = useRouter()
     const {gameId} = router.query
 
     return <>
-        <AddressInput names={["Dein Wallet"]} next="/lounge"/>
-        {/*TODO*/}
-        <p>Post: {gameId}</p>
+        <AddressInput names={["Dein Wallet"]} next={"/" + gameId + "/wait"}/>
     </>
 }
-
-export default Post
