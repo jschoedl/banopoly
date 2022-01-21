@@ -16,7 +16,10 @@ function AddressInput(props) {
 
     const router = useRouter();
     const handleSubmit = (event) => {
-        router.push(props.next);
+        router.push({
+            pathname: props.next,
+            query: props.names.map(name => addresses[name])
+        });
         event.preventDefault();
     }
 

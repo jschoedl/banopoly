@@ -5,13 +5,10 @@ import funFacts from "../../public/funFacts";
 export default function Home({success, funFact}) {
     return (
         <div>
-            {success ? (
-                <h2 className="subtitle">You are connected to MongoDB</h2>
-            ) : (
-                <h2 className="subtitle">
-                    You are NOT connected to MongoDB. Check the <code>README.md</code>{' '}
-                    for instructions.
-                </h2>
+            {!success && (
+                <Alert variant="warning">
+                    Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
+                </Alert>
             )}
             <Alert variant="info">
                 <b>Fun Fact: </b>{funFact}
@@ -25,10 +22,14 @@ export async function getServerSideProps(context) {
     try {
         const client = await clientPromise;
         const db = client.db("main");
+        const games = db.collection("games");
+
+        const participant = {
+            account: context.query[0]
+        }
+
+        await games.updateOne({_id: context.params.gameId}, {$push: {players: participant}});
         success = true;
-        //TODO: insert address
-
-
     } catch (e) {
         console.error(e);
     }
