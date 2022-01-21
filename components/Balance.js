@@ -43,11 +43,12 @@ class Balance extends Component {
     }
 
     render() {
-        if (this.format)
+        if (this.format) { // noinspection EqualityComparisonWithCoercionJS
             return (
-                <>{isNaN((this.state.balance)) ?
+                <>{this.state.balance == 0 ?
                     <>keine Transaktion mit diesem Konto gefunden</> : <>Kontostand: {this.state.balance} BANANO</>}</>
             )
+        }
         return (
             <>{this.state.balance}</>
         );
