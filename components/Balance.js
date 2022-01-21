@@ -6,7 +6,7 @@ bananojs.setBananodeApiUrl('https://kaliumapi.appditto.com/api');
 class Balance extends Component {
     constructor(props) {
         super(props);
-        this.state = {balance: NaN, address: props.address};
+        this.state = {balance: "⏳", address: props.address};
         this.update = props.update || false;
         this.format = props.format || false;
         this.factor = 10e-30;
@@ -38,7 +38,7 @@ class Balance extends Component {
         }
 
         fetchBalance(this.state.address).then((res) => {
-            this.setState({balance: (res.balance * this.factor).toFixed(this.decimals)});
+            this.setState({balance: (res.balance * this.factor || 0).toFixed(this.decimals)});
         });
     }
 
@@ -46,10 +46,10 @@ class Balance extends Component {
         if (this.format)
             return (
                 <>{isNaN((this.state.balance)) ?
-                    <>Konto nicht gefunden</> : <>Kontostand: {this.state.balance} BANANO</>}</>
+                    <>keine Transaktion mit diesem Konto gefunden</> : <>Kontostand: {this.state.balance} BANANO</>}</>
             )
         return (
-            <>{this.state.balance || NaN}</>
+            <>{this.state.balance}</>
         );
     }
 }
