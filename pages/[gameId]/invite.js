@@ -23,7 +23,6 @@ export default function Invite({success}) {
 
         <QRCode value={joinURL}/>
         <p>{joinURL}</p>
-        <p>location.state</p>
     </>
 }
 

@@ -4,12 +4,13 @@ import {useState} from "react";
 import {useRouter} from "next/router";
 
 function AddressInput(props) {
-    const [addresses, setAddresses] = useState({});
+    const names = [...(props.accountNames || []), ...(props.otherNames || [])];
+    const [fields, setFields] = useState({});
 
 
     const handleChange = (event, name) => {
-        setAddresses({
-            ...addresses,
+        setFields({
+            ...fields,
             [name]: event.target.value,
         })
     }
@@ -18,25 +19,25 @@ function AddressInput(props) {
     const handleSubmit = (event) => {
         router.push({
             pathname: props.next,
-            query: props.names.map(name => addresses[name])
+            query: names.map(name => fields[name])
         });
         event.preventDefault();
     }
 
     // TODO: option to create an account
     let inputs = [];
-    for (const name of props.names) {
+    for (const name of names) {
         inputs.push(
             <Form.Group className="mb-3" controlId="formBasicEmail" key={name}>
                 <Form.Label>{name}</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Adresse eingeben"
-                    value={addresses[name]}
+                    value={fields[name]}
                     onChange={(event) => handleChange(event, name)}/>
-                {addresses[name] &&
+                {props.accountNames.includes(name) && fields[name] &&
                     <Form.Text className="text-muted">
-                        <Balance address={addresses[name]} format={true}/>
+                        <Balance address={fields[name]} format={true}/>
                     </Form.Text>
                 }
             </Form.Group>
@@ -44,8 +45,8 @@ function AddressInput(props) {
     }
 
     let disabled = false;
-    props.names.forEach(name => {
-        if (!addresses[name])
+    names.forEach(name => {
+        if (!fields[name])
             disabled = true;
     })
 

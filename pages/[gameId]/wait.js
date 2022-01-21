@@ -25,7 +25,8 @@ export async function getServerSideProps(context) {
         const games = db.collection("games");
 
         const participant = {
-            account: context.query[0]
+            address: context.query[0],
+            name: context.query[1],
         }
 
         await games.updateOne({_id: context.params.gameId}, {$push: {players: participant}});

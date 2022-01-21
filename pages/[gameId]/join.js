@@ -7,6 +7,6 @@ export default function JoinGame() {
     const {gameId} = router.query
 
     return <>
-        <AddressInput names={["Dein Wallet"]} next={"/" + gameId + "/wait"}/>
+        <AddressInput accountNames={["Dein Wallet"]} otherNames={["Name"]} next={"/" + gameId + "/wait"}/>
     </>
 }
