@@ -15,7 +15,7 @@ class Balance extends Component {
 
     componentDidMount() {
         if (this.update)
-            this.updateInterval = setInterval(() => this.updateBalance(), 1000 + Math.floor(Math.random()*1000));
+            this.updateInterval = setInterval(() => this.updateBalance(), 1000 + Math.floor(Math.random()*2000));
         else
             this.updateBalance();
     }
