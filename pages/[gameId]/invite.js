@@ -1,29 +1,39 @@
 import QRCode from "qrcode.react";
 import {useRouter} from "next/router";
 import clientPromise from "../../lib/mongodb";
-import {Alert} from "react-bootstrap";
+import {Alert, Button, Col, Container, Row} from "react-bootstrap";
+import Participants from "../../components/Participants";
+import Link from "next/link";
 
-
-export default function Invite({success}) {
+export default function Invite({success, apiHost}) {
     const router = useRouter();
     const {gameId} = router.query;
 
+    let protocol = "";
     let hostname = "";
     if (typeof window !== 'undefined')
+        protocol = window.location.protocol;
         hostname = window.location.host;
 
-    const joinURL = hostname + "/" + gameId + "/join";
+    const nextUrlBeginning = protocol + "//" + hostname + "/" + gameId;
 
-    return <>
-        {!success && (
-            <Alert variant="warning">
-                Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
-            </Alert>
-        )}
-
-        <QRCode value={joinURL}/>
-        <p>{joinURL}</p>
-    </>
+    return <Container fluid className="invite">
+        <Row>
+            {!success && (
+                <Alert variant="warning">
+                    Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
+                </Alert>
+            )}
+            <Col className="qr-container">
+                <QRCode value={nextUrlBeginning + "/join"} size={1024} className="qr"/>
+                <p>{nextUrlBeginning + "/join"}</p>
+                <Button onClick={() => router.push(nextUrlBeginning + "/game")}>Spiel starten</Button>
+            </Col>
+            <Col>
+                <Participants gameId={gameId} apiHost={apiHost}/>
+            </Col>
+        </Row>
+    </Container>
 }
 
 export async function getServerSideProps(context) {
@@ -39,15 +49,25 @@ export async function getServerSideProps(context) {
             bankAccount: context.query[0],
             players: [],
         }
-        await games.insertOne(newGame);
+        try {
+            await games.insertOne(newGame);
+        } catch (e) {
+            console.log("Probably key duplicate on reload:", e)
+        }
+
         success = true;
     } catch (e) {
         console.error(e);
     }
 
+    if (!process.env.API_HOST) {
+        throw new Error('Please add your host to .env.local');
+    }
+
     return {
         props: {
             success: success,
+            apiHost: process.env.API_HOST,
         }
     }
 }

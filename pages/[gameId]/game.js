@@ -16,7 +16,7 @@ export default function ViewGame({success, game}) {
                 Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
             </Alert>
         )}
-        <Container fluid>
+        <Container fluid className="game">
             <Row>
                 <Col><Account name="Bank" address={game.bankAccount}/></Col>
                 <Controls/>

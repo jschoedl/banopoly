@@ -7,7 +7,7 @@ class Balance extends Component {
     constructor(props) {
         super(props);
         this.state = {balance: NaN, formattedBalance: "⏳", address: props.address};
-        this.update = props.update || false;
+        this.update = props.update || true;
         this.format = props.format || false;
         this.factor = 10e-30 * props.factor || 10e-30;
         this.decimals = props.decimals === undefined ? 4 : props.decimals;
@@ -15,7 +15,7 @@ class Balance extends Component {
 
     componentDidMount() {
         if (this.update)
-            this.updateInterval = setInterval(() => this.updateBalance(), 1000);
+            this.updateInterval = setInterval(() => this.updateBalance(), 1000 + Math.floor(Math.random()*1000));
         else
             this.updateBalance();
     }

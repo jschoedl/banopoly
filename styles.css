@@ -14,18 +14,26 @@ h2 {
     color: #fefefe;
 }
 
+p {
+    font-size: 5vh;
+}
+
+h1 + p {
+    line-height: 0;
+}
+
 .yellow {
     color: #fedd0e;
 }
 
-.icon{
+.icon {
     display: inline;
     height: .4em;
     padding-right: .1em;
     padding-bottom: .1em;
 }
 
-.container-fluid {
+.container-fluid.game {
     margin: -2em;
     display: flex;
     flex-direction: column;
@@ -35,7 +43,11 @@ h2 {
     background-color: #2d2d2d;
 }
 
-.row {
+.container-fluid.invite {
+    font-family: Dongle, sans-serif;
+}
+
+.game > .row {
     flex: 1;
     margin: 2% 5%;
 }
@@ -72,4 +84,22 @@ h2 {
 
 .controls {
     flex: 1.5;
+}
+
+.invite * .col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 4em);
+}
+
+.qr {
+    height: 50vh !important;
+    width: 50vh !important;
+}
+
+.qr-container > button {
+    font-size: 5vh !important;
+    padding-bottom: 0 !important;
 }
