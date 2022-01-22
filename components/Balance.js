@@ -11,18 +11,20 @@ class Balance extends Component {
         this.format = props.format || false;
         this.factor = 10e-30 * props.factor || 10e-30;
         this.decimals = props.decimals === undefined ? 4 : props.decimals;
+
+        this.updateCallback = () => this.updateBalance()
     }
 
     componentDidMount() {
         if (this.update)
-            this.updateInterval = setInterval(() => this.updateBalance(), 1000 + Math.floor(Math.random()*2000));
+            this.updateTimeout = setTimeout(this.updateCallback, Math.floor(Math.random() * 1000))
         else
-            this.updateBalance();
+            this.updateBalance()
     }
 
     componentWillUnmount() {
         if (this.update)
-            clearInterval(this.updateInterval);
+            clearTimeout(this.updateTimeout);
     }
 
     componentDidUpdate(prevProps) {
@@ -38,22 +40,30 @@ class Balance extends Component {
         }
 
         fetchBalance(this.state.address).then((res) => {
-            this.setState({
-                balance: res.balance,
-                formattedBalance: (res.balance * this.factor || 0).toLocaleString(undefined, {
-                        maximumFractionDigits: this.decimals,
-                        minimumFractionDigits: this.decimals,
-                    },
-                )
-            });
+            if (res.error && res.error !== "Account not found") {
+                console.log(res.error);
+            } else
+                this.setState({
+                    balance: res.balance,
+                    formattedBalance: (res.balance * this.factor || 0).toLocaleString(undefined, {
+                            maximumFractionDigits: this.decimals,
+                            minimumFractionDigits: this.decimals,
+                        },
+                    )
+                });
         });
+
+        if (this.update) {
+            this.updateTimeout = setTimeout(this.updateCallback, 3_000 + Math.floor(Math.random() * 2000))
+        }
     }
 
     render() {
         if (this.format) { // noinspection EqualityComparisonWithCoercionJS
             return (
                 <>{this.state.balance === undefined ?
-                    <>keine Transaktion mit diesem Konto gefunden</> : <>Kontostand: {this.state.formattedBalance} BANANO</>}</>
+                    <>keine Transaktion mit diesem Konto
+                        gefunden</> : <>Kontostand: {this.state.formattedBalance} BANANO</>}</>
             )
         }
         return (
