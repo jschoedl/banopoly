@@ -1,6 +1,7 @@
 import clientPromise from "../../lib/mongodb";
 import {Alert, Col, Container, Row} from "react-bootstrap";
 import Account from "../../components/Account";
+import Controls from "../../components/Controls";
 
 export default function ViewGame({success, game}) {
     let playerColumns = [];
@@ -18,6 +19,7 @@ export default function ViewGame({success, game}) {
         <Container fluid>
             <Row>
                 <Col><Account name="Bank" address={game.bankAccount}/></Col>
+                <Controls/>
                 <Col><Account name="Mitte" address={game.centerAccount}/></Col>
             </Row>
             <Row>

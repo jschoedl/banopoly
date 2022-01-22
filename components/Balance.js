@@ -9,8 +9,8 @@ class Balance extends Component {
         this.state = {balance: "⏳", address: props.address};
         this.update = props.update || false;
         this.format = props.format || false;
-        this.factor = 10e-30;
-        this.decimals = 4;
+        this.factor = 10e-30 * props.factor || 10e-30;
+        this.decimals = props.decimals === undefined ? 4 : props.decimals;
     }
 
     componentDidMount() {
@@ -38,7 +38,13 @@ class Balance extends Component {
         }
 
         fetchBalance(this.state.address).then((res) => {
-            this.setState({balance: (res.balance * this.factor || 0).toFixed(this.decimals)});
+            this.setState({
+                balance: (res.balance * this.factor || 0).toLocaleString(undefined, {
+                        maximumFractionDigits: this.decimals,
+                        minimumFractionDigits: this.decimals,
+                    },
+                )
+            });
         });
     }
 
