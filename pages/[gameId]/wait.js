@@ -1,10 +1,15 @@
 import clientPromise from "../../lib/mongodb";
 import {Alert} from "react-bootstrap";
 import funFacts from "../../public/funFacts";
+import {endings, sentences} from "../../public/waitingMessages";
+import {end} from "stream-http/lib/request";
 
-export default function Home({success, funFact}) {
+export default function Home({success, funFact, waitingMessage}) {
     return (
         <div>
+            {success && (
+                <h1>{waitingMessage}</h1>
+            )}
             {!success && (
                 <Alert variant="warning">
                     Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
@@ -36,10 +41,13 @@ export async function getServerSideProps(context) {
     }
 
     const funFactIndex = Math.floor(Math.random() * funFacts.length);
+    const waitingSentenceIndex = Math.floor(Math.random() * sentences.length);
+    const waitingSymbolIndex = Math.floor(Math.random() * endings.length);
     return {
         props: {
             success: success,
-            funFact: funFacts[funFactIndex]
+            funFact: funFacts[funFactIndex],
+            waitingMessage: sentences[waitingSentenceIndex] + endings[waitingSymbolIndex],
         }
     }
 }
