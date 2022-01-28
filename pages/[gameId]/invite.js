@@ -3,17 +3,15 @@ import {useRouter} from "next/router";
 import clientPromise from "../../lib/mongodb";
 import {Alert, Button, Col, Container, Row} from "react-bootstrap";
 import Participants from "../../components/Participants";
-import Link from "next/link";
 
 export default function Invite({success, apiHost}) {
     const router = useRouter();
     const {gameId} = router.query;
 
     let protocol = "";
-    let hostname = "";
     if (typeof window !== 'undefined')
         protocol = window.location.protocol;
-        hostname = window.location.host;
+    let hostname = window.location.host;
 
     const nextUrlBeginning = protocol + "//" + hostname + "/" + gameId;
 
@@ -48,11 +46,12 @@ export async function getServerSideProps(context) {
             centerAccount: context.query[1],
             bankAccount: context.query[0],
             players: [],
+            started: false,
         }
         try {
             await games.insertOne(newGame);
         } catch (e) {
-            console.log("Probably key duplicate on reload:", e)
+            console.log("ignored duplicate key");
         }
 
         success = true;

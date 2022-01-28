@@ -5,17 +5,17 @@ body {
 }
 
 h1 {
-    font-size: 8vh;
+    font-size: 5vmax;
     color: rgb(180, 102, 233);
 }
 
 h2 {
-    font-size: 5vh;
+    font-size: 3vmax;
     color: #fefefe;
 }
 
 p {
-    font-size: 5vh;
+    font-size: 3vmax;
 }
 
 h1 + p {
@@ -86,12 +86,22 @@ h1 + p {
     flex: 1.5;
 }
 
+.large-icon {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 1em;
+}
+
 .invite * .col {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 4em);
+}
+
+.vstack > * {
+    text-align: center;
 }
 
 .qr {

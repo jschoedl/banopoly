@@ -39,6 +39,7 @@ export async function getServerSideProps(context) {
 
         game = await games.findOne({_id: context.params.gameId})
         success = true;
+        games.updateOne({_id: context.params.gameId}, {$set: {started: true}});
     } catch (e) {
         console.error(e);
     }

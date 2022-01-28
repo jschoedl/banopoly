@@ -1,24 +1,44 @@
 import clientPromise from "../../lib/mongodb";
-import {Alert} from "react-bootstrap";
+import {Alert, Button, Stack} from "react-bootstrap";
 import funFacts from "../../public/funFacts";
 import {endings, sentences} from "../../public/waitingMessages";
-import {end} from "stream-http/lib/request";
+import {useEffect, useState} from "react";
+import {FaRegCheckCircle} from "react-icons/fa";
 
-export default function Home({success, funFact, waitingMessage}) {
+export default function Home({success, apiHost, gameId, funFact, waitingMessage}) {
+    let [filename, setFilename] = useState("");
+
+    async function updateOnGameStart() {
+        fetch(apiHost + "/api/waitForAddresses?gameId=" + gameId)
+            .then(response => response.blob())
+            .then(blob => {
+                blob = blob.slice(0, blob.size, "text/plain");
+                setFilename(URL.createObjectURL(blob));
+            });
+    }
+
+    useEffect(() => updateOnGameStart(), []);
+
     return (
-        <div>
-            {success && (
-                <h1>{waitingMessage}</h1>
-            )}
-            {!success && (
-                <Alert variant="warning">
+        <Stack gap={3}>
+            {success
+                ? filename ? <>
+                    <h1><FaRegCheckCircle className="large-icon"/></h1>
+                    <Button variant="primary" href={filename} download={gameId+".txt"}>Adressdaten
+                        herunterladen</Button>
+                    <Alert variant="success">
+                        Importiert diese Adressen in eurem Kalium Wallet.
+                    </Alert>
+                </> : <>
+                    <h1>{waitingMessage}</h1>
+                    <Alert variant="info">
+                        <b>Fun Fact: </b>{funFact}
+                    </Alert>
+                </>
+                : (<Alert variant="warning">
                     Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
-                </Alert>
-            )}
-            <Alert variant="info">
-                <b>Fun Fact: </b>{funFact}
-            </Alert>
-        </div>
+                </Alert>)}
+        </Stack>
     );
 }
 
@@ -35,6 +55,7 @@ export async function getServerSideProps(context) {
         }
 
         await games.updateOne({_id: context.params.gameId}, {$push: {players: participant}});
+
         success = true;
     } catch (e) {
         console.error(e);
@@ -46,6 +67,8 @@ export async function getServerSideProps(context) {
     return {
         props: {
             success: success,
+            apiHost: process.env.API_HOST,
+            gameId: context.params.gameId,
             funFact: funFacts[funFactIndex],
             waitingMessage: sentences[waitingSentenceIndex] + endings[waitingSymbolIndex],
         }
