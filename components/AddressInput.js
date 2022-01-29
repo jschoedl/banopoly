@@ -54,7 +54,7 @@ function AddressInput(props) {
         <Form onSubmit={handleSubmit}>
             {inputs}
             <Button variant="primary" type="submit" disabled={disabled}>
-                Submit
+                weiter
             </Button>
         </Form>
     );
