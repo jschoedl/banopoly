@@ -17,9 +17,9 @@ export default function ViewGame({success, game, clientId, clientSecret, refresh
             </Alert>
         )}
         <Container fluid className="game">
-            <Row>
+            <Row className="force-size-2">
                 <Col><Account name="Bank" address={game.bankAccount}/></Col>
-                <Col><Controls clientId={clientId} clientSecret={clientSecret} refreshToken={refreshToken}/></Col>
+                <Controls clientId={clientId} clientSecret={clientSecret} refreshToken={refreshToken}/>
                 <Col><Account name="Mitte" address={game.centerAccount}/></Col>
             </Row>
             <Row>

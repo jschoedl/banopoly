@@ -8,6 +8,7 @@ body {
 h1 {
     font-size: 5vmax;
     color: rgb(180, 102, 233);
+    line-height: 1;
 }
 
 h2 {
@@ -17,10 +18,7 @@ h2 {
 
 p {
     font-size: 3vmax;
-}
-
-h1 + p {
-    line-height: 0;
+    line-height: 1;
 }
 
 .yellow {
@@ -53,7 +51,11 @@ h1 + p {
     margin: 2% 5%;
 }
 
-.account {
+.force-size-2 {
+    height: calc(50vh - 10%);
+}
+
+.account, .spotify-player {
     height: calc(100% - 30px);
     margin: 10px;
     padding: 20px;
@@ -68,6 +70,27 @@ h1 + p {
 
 .account:hover {
     box-shadow: 0 0 30px rgb(1, 1, 1);
+}
+
+.spotify-player {
+    flex: 3;
+    box-shadow: 0 0 15px rgb(147, 146, 146);
+    background-color: rgba(255, 255, 255, 0.96);
+    flex-direction: row;
+}
+
+.spotify-player:hover {
+    box-shadow: 0 0 30px rgb(147, 146, 146);
+}
+
+.spotify-player > .hstack{
+    height: 100%;
+}
+
+.cover{
+    height: calc(100% + 40px);
+    margin: -20px 20px -20px -20px;
+    border-radius: 20px 0 0 20px;
 }
 
 .account > * {
@@ -97,6 +120,10 @@ h1 + p {
     height: calc(100vh - 4em);
 }
 
+.invite * * h1+p{
+    line-height: 0;
+}
+
 .vstack > * {
     text-align: center;
 }
@@ -109,123 +136,4 @@ h1 + p {
 .qr-container > button {
     font-size: 5vh !important;
     padding-bottom: 0 !important;
-}
-
-.spotify-player {
-    flex: 1.5;
-    height: calc(100% - 30px);
-    margin: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgb(147, 146, 146);
-    background-color: rgba(255, 255, 255, 0.96);
-    border-radius: 20px;
-    transition: box-shadow 1s;
-}
-
-.spotify-player:hover {
-    box-shadow: 0 0 30px rgb(147, 146, 146);
-}
-
-.spotify-player .nowplayingcard {
-    min-width: 200px;
-    max-width: 20%;
-    margin: 0 auto;
-    margin-top: 5%;
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 13px;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner {
-    width: 100%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    display: inline-block;
-    -webkit-border-top-left-radius: 3px;
-    -moz-border-top-left-radius: 3px;
-    -ms-border-top-left-radius: 3px;
-    -o-border-top-left-radius: 3px;
-    border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-bottom-left-radius: 3px;
-    -ms-border-bottom-left-radius: 3px;
-    -o-border-bottom-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner img#trackart {
-    max-width: 30%;
-    float: left;
-    left: 0;
-    -webkit-border-top-left-radius: 3px;
-    -moz-border-top-left-radius: 3px;
-    -ms-border-top-left-radius: 3px;
-    -o-border-top-left-radius: 3px;
-    border-top-left-radius: 3px;
-    -webkit-border-bottom-left-radius: 3px;
-    -moz-border-bottom-left-radius: 3px;
-    -ms-border-bottom-left-radius: 3px;
-    -o-border-bottom-left-radius: 3px;
-    border-bottom-left-radius: 3px;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner .trackInfo {
-    width: 70%;
-    float: left;
-    display: block;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner .trackInfo a {
-    max-width: 90%;
-    display: block;
-    font-size: 14px;
-    text-align: left;
-    text-decoration: none;
-    vertical-align: middle;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner .trackInfo a:nth-child(odd) {
-    color: black;
-    font-weight: bold;
-    vertical-align: middle;
-    line-height: 15px;
-    letter-spacing: 0.2px;
-    padding: 10% 0 0 5%;
-}
-
-.spotify-player
-.nowplayingcard
-.nowplayingcontainer-inner
-.trackInfo
-a:nth-child(odd)
-img {
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -2% 3px 0 0;
-}
-
-.spotify-player .nowplayingcard .nowplayingcontainer-inner .trackInfo a:nth-child(even) {
-    color: gray;
-    font-size: 12px;
-    letter-spacing: 0.1px;
-    padding: 5% 0 0 5%;
-}
-
-.spotify-player
-.nowplayingcard
-.nowplayingcontainer-inner
-.trackInfo
-a:nth-child(even)
-img {
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -2% 3px 0 0;
 }

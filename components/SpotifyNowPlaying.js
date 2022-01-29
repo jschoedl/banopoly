@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
 import getNowPlayingItem from "../lib/spotify";
+import {Stack} from "react-bootstrap";
+import {formatLongString} from "../lib/helpers";
 
 function SpotifyNowPlaying(props) {
     const [result, setResult] = useState({});
@@ -15,25 +17,22 @@ function SpotifyNowPlaying(props) {
                 ]).then((results) => {
                     setResult(results[0]);
                 }),
-            1000
+            3000
         );
     }, []);
 
-    return result.isPlaying ? (
-        <div className="nowplayingcard">
-            <div className="nowplayingcontainer-inner">
-                <img id="trackart" src={result.albumImageUrl}/>
+    return (
+        result.isPlaying ? (<Stack direction={"horizontal"}>
+                <img className="cover" src={result.albumImageUrl}/>
                 <div className="trackInfo">
-                    <a id="tracktitle">{result.title}</a>
-                    <a href="#" id="trackartist">
-                        {result.artist}
-                    </a>
+                    <h1>{formatLongString(result.title)}</h1>
+                    <p id="trackartist">
+                        {formatLongString(result.artist, 50)}
+                    </p>
                 </div>
-            </div>
-        </div>
-    ) : (
-        <div>Not playing</div>
-    );
+            </Stack>) :
+            <h1>Gerade wird nichts wiedergegeben.</h1>
+    )
 }
 
 export default SpotifyNowPlaying;
