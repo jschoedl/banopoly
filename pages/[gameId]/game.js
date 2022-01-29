@@ -3,7 +3,7 @@ import {Alert, Col, Container, Row} from "react-bootstrap";
 import Account from "../../components/Account";
 import Controls from "../../components/Controls";
 
-export default function ViewGame({success, game}) {
+export default function ViewGame({success, game, clientId, clientSecret, refreshToken}) {
     let playerColumns = [];
     if (success) {
         game.players.forEach(player => playerColumns.push(<Col key={player.name}><Account name={player.name}
@@ -19,7 +19,7 @@ export default function ViewGame({success, game}) {
         <Container fluid className="game">
             <Row>
                 <Col><Account name="Bank" address={game.bankAccount}/></Col>
-                <Controls/>
+                <Col><Controls clientId={clientId} clientSecret={clientSecret} refreshToken={refreshToken}/></Col>
                 <Col><Account name="Mitte" address={game.centerAccount}/></Col>
             </Row>
             <Row>
@@ -48,6 +48,9 @@ export async function getServerSideProps(context) {
         props: {
             success: success,
             game: game,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
         }
     }
 }
