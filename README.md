@@ -1,6 +1,6 @@
-# Banopoly
+# Banopoly (WIP)
 
-Play MONOPOLY using the BANANO cryptocurrency.
+Play MONOPOLY using the Banano cryptocurrency.
 
 ## Installation
 1. Create a Spotify application and [get a refresh token](https://benwiz.com/blog/create-spotify-refresh-token/)
@@ -35,3 +35,16 @@ npm start
     sudo chown mongodb:mongodb /tmp/mongodb-27017.sock
     sudo service mongod restart
   ```
+
+## To do
+Feel free to submit a pull request.
+
+- [ ] fix animation on balance change
+- [ ] do not add already joined players on reload
+- [ ] replace BananoJS with another API that supports binding to balance change
+- [ ] add other UI languages (currently German only)
+- [ ] add instructions on securing the MongoDB database
+- [ ] add an authorization dialog for Spotify
+- [ ] clear database records at end of game
+- [ ] use long polling for names on the invite page
+- [ ] add an option to remove joined players
