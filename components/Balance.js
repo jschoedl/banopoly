@@ -36,7 +36,8 @@ class Balance extends Component {
     }
 
     async animateBalance(start, end) {
-        let diff = (end - start) / 10;
+        // TODO
+        /* let diff = (end - start) / 10;
         let current = start;
         while (current < end) {
             await sleep(20);
@@ -50,7 +51,7 @@ class Balance extends Component {
                     },
                 ),
             })
-        }
+        } */
         this.setState({
             formattedBalance: (end * this.factor || 0).toLocaleString(undefined, {
                     maximumFractionDigits: this.decimals,
