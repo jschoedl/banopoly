@@ -8,7 +8,7 @@ Play MONOPOLY using the Banano cryptocurrency.
 3. Install other dependencies using ```npm install```
 4. Start MongoDB (e.g. ```sudo service mongod start```)
 5. Copy ```.env.local.example``` to ```.env.local``` and edit it if necessary
-6. Copy ```public/funFacs.js.example``` to ```public/funFacs.js``` and add fun facts as you wish
+6. Add fun facts to ```public/funFacs.js``` as you wish
 
 ### Development
 ```shell
