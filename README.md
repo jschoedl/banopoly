@@ -45,7 +45,7 @@ npm start
 ## To do
 Feel free to submit a pull request.
 
-- [ ] fix contact download before game start
+- [x] fix contact download before game start
 - [x] do not add already joined players on reload
 - [ ] add a menu for editing fun facts
 - [ ] fix animation on balance change
