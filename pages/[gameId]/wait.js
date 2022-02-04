@@ -1,6 +1,5 @@
 import clientPromise from "../../lib/mongodb";
 import {Alert, Button, Stack} from "react-bootstrap";
-import funFacts from "../../public/funFacts";
 import {endings, sentences} from "../../public/waitingMessages";
 import {useEffect, useState} from "react";
 import {FaRegCheckCircle} from "react-icons/fa";
@@ -20,7 +19,6 @@ export default function Home({success, apiHost, gameId, funFact, waitingMessage}
         }
     }
 
-
     useEffect(() => updateOnGameStart(), []);
 
     return (
@@ -35,9 +33,11 @@ export default function Home({success, apiHost, gameId, funFact, waitingMessage}
                     </Alert>
                 </> : <>
                     <h1>{waitingMessage}</h1>
-                    <Alert variant="info">
-                        <b>Fun Fact: </b>{funFact}
-                    </Alert>
+                    {funFact &&
+                        <Alert variant="info">
+                            <b>Fun Fact: </b>{funFact}
+                        </Alert>
+                    }
                 </>
                 : (<Alert variant="warning">
                     Fehler beim Eintragen in die Datenbank ¯\_(ツ)_/¯
@@ -48,6 +48,13 @@ export default function Home({success, apiHost, gameId, funFact, waitingMessage}
 
 export async function getServerSideProps(context) {
     let success = false;
+    let funFactsResult;
+    if (process.env.FUN_FACTS_URL)
+        funFactsResult = fetch(process.env.FUN_FACTS_URL).then(res => res.text()).then(newFunFacts => {
+            if (newFunFacts)
+                return newFunFacts.split("\n");
+        });
+
     try {
         const client = await clientPromise;
         const db = client.db("main");
@@ -65,7 +72,13 @@ export async function getServerSideProps(context) {
         console.error(e);
     }
 
-    const funFactIndex = Math.floor(Math.random() * funFacts.length);
+    let funFacts = await funFactsResult;
+    let selectedFunFact;
+    if (funFacts) {
+        const funFactIndex = Math.floor(Math.random() * funFacts.length);
+        selectedFunFact = funFacts[funFactIndex];
+    }
+
     const waitingSentenceIndex = Math.floor(Math.random() * sentences.length);
     const waitingSymbolIndex = Math.floor(Math.random() * endings.length);
     return {
@@ -73,7 +86,7 @@ export async function getServerSideProps(context) {
             success: success,
             apiHost: process.env.API_HOST,
             gameId: context.params.gameId,
-            funFact: funFacts[funFactIndex],
+            funFact: selectedFunFact || null,
             waitingMessage: sentences[waitingSentenceIndex] + endings[waitingSymbolIndex],
         }
     }

@@ -10,7 +10,6 @@ Play MONOPOLY using the Banano cryptocurrency.
 3. Clone this repository and move to its directory (e.g. ```git clone https://github.com/jschoedl/banopoly.git && cd banopoly```)
 4. Install other dependencies using ```npm install```
 5. Copy ```.env.local.example``` to ```.env.local``` and edit it if necessary
-6. Add fun facts to ```public/funFacs.js``` as you wish
 
 ### Managed Hosting with Vercel
 3. Start a [new project with this repository](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fjschoedl%2Fbanopoly)
@@ -29,7 +28,7 @@ npm start
 
 ## Troubleshooting
 
-### No Connection to MongoDB
+### No connection to a self-hosted MongoDB instance
 * check ```sudo service mongod status```
   * is inactive:
   ```shell
@@ -47,7 +46,7 @@ Feel free to submit a pull request.
 
 - [x] fix contact download before game start
 - [x] do not add already joined players on reload
-- [ ] add a menu for editing fun facts
+- [x] move fun facts to external URL
 - [x] fix animation on balance change
 - [ ] replace BananoJS with another API that supports binding to balance change
 - [ ] add other UI languages (currently German only)
