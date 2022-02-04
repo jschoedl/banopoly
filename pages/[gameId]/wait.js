@@ -9,13 +9,17 @@ export default function Home({success, apiHost, gameId, funFact, waitingMessage}
     let [filename, setFilename] = useState("");
 
     async function updateOnGameStart() {
-        fetch(apiHost + "/api/waitForAddresses?gameId=" + gameId)
-            .then(response => response.blob())
-            .then(blob => {
+        while (true) {
+            let response = await fetch(apiHost + "/api/waitForAddresses?gameId=" + gameId)
+            if (response.status !== 504) { // Vercel timeout
+                let blob = await response.blob();
                 blob = blob.slice(0, blob.size, "text/plain");
                 setFilename(URL.createObjectURL(blob));
-            });
+                return;
+            }
+        }
     }
+
 
     useEffect(() => updateOnGameStart(), []);
 
@@ -24,7 +28,7 @@ export default function Home({success, apiHost, gameId, funFact, waitingMessage}
             {success
                 ? filename ? <>
                     <h1><FaRegCheckCircle className="large-icon"/></h1>
-                    <Button variant="primary" href={filename} download={gameId+".txt"}>Adressdaten
+                    <Button variant="primary" href={filename} download={gameId + ".txt"}>Adressdaten
                         herunterladen</Button>
                     <Alert variant="success">
                         Importiert diese Adressen in eurem Kalium Wallet.
