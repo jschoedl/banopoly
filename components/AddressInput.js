@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 function AddressInput(props) {
     const names = [...(props.accountNames || []), ...(props.otherNames || [])];
     const [fields, setFields] = useState({});
+    const [isLoading, setLoading] = useState(false);
 
 
     const handleChange = (event, name) => {
@@ -17,6 +18,7 @@ function AddressInput(props) {
 
     const router = useRouter();
     const handleSubmit = (event) => {
+        setLoading(true);
         router.push({
             pathname: props.next,
             query: names.map(name => fields[name])
@@ -53,8 +55,11 @@ function AddressInput(props) {
     return (
         <Form onSubmit={handleSubmit}>
             {inputs}
-            <Button variant="primary" type="submit" disabled={disabled}>
-                weiter
+            <Button
+                variant="primary"
+                type="submit"
+                disabled={disabled || isLoading}>
+                {isLoading ? "lädt..." : "weiter"}
             </Button>
         </Form>
     );
