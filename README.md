@@ -48,7 +48,7 @@ Feel free to submit a pull request.
 - [x] fix contact download before game start
 - [x] do not add already joined players on reload
 - [ ] add a menu for editing fun facts
-- [ ] fix animation on balance change
+- [x] fix animation on balance change
 - [ ] replace BananoJS with another API that supports binding to balance change
 - [ ] add other UI languages (currently German only)
 - [ ] add instructions on securing the MongoDB database

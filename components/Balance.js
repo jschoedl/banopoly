@@ -36,13 +36,15 @@ class Balance extends Component {
     }
 
     async animateBalance(start, end) {
-        // TODO
-        /* let diff = (end - start) / 10;
-        let current = start;
-        while (current < end) {
+        if (start === end) return;
+        let diff = (end - start) / 10;
+        let current = Number(start);
+        console.log(current*this.factor, end*this.factor, 10**-this.decimals)
+        while ((Math.abs(current-end)*this.factor) > (10**-this.decimals)) {
             await sleep(20);
             console.log(current)
             current += diff;
+            console.log("->", current)
             diff *= 0.9;
             this.setState({
                 formattedBalance: (current * this.factor || 0).toLocaleString(undefined, {
@@ -51,7 +53,7 @@ class Balance extends Component {
                     },
                 ),
             })
-        } */
+        }
         this.setState({
             formattedBalance: (end * this.factor || 0).toLocaleString(undefined, {
                     maximumFractionDigits: this.decimals,
@@ -70,8 +72,7 @@ class Balance extends Component {
             if (res.error && res.error !== "Account not found") {
                 console.log(res.error);
             } else {
-                this.animateBalance(this.state.balance || 0, res.balance || 0).then(r => {
-                });
+                this.animateBalance(this.state.balance || 0, res.balance || 0);
                 this.setState({
                     balance: res.balance,
                     formattedBalance: (res.balance * this.factor || 0).toLocaleString(undefined, {
