@@ -46,7 +46,7 @@ npm start
 Feel free to submit a pull request.
 
 - [ ] fix contact download before game start
-- [ ] do not add already joined players on reload
+- [x] do not add already joined players on reload
 - [ ] add a menu for editing fun facts
 - [ ] fix animation on balance change
 - [ ] replace BananoJS with another API that supports binding to balance change

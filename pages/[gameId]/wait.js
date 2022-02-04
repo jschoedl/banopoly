@@ -54,7 +54,7 @@ export async function getServerSideProps(context) {
             name: context.query[1],
         }
 
-        await games.updateOne({_id: context.params.gameId}, {$push: {players: participant}});
+        await games.updateOne({_id: context.params.gameId}, {$addToSet: {players: participant}});
 
         success = true;
     } catch (e) {
