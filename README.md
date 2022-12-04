@@ -55,4 +55,3 @@ Feel free to submit a pull request.
 - [ ] clear database records at end of game
 - [ ] use long polling for names on the invite page
 - [ ] add an option to remove joined players
-
